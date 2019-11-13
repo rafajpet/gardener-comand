@@ -58,8 +58,17 @@ type SwitchState struct {
 
 func (c *client) SetSwitch(ctx context.Context, state bool) (SwitchState, error) {
 
-	c.deviceLinks.GetResourceLinks(c.config.SwitchType)
-	panic("implement me")
+	links := c.deviceLinks.GetResourceLinks(c.config.SwitchType)
+	if len(links) == 0 {
+		return SwitchState{}, fmt.Errorf("unable to get resource link")
+	}
+	link := links[0]
+	sws := SwitchState{State: state}
+	err := c.device.UpdateResource(ctx, link, &sws, nil)
+	if err != nil {
+		return SwitchState{}, err
+	}
+	return c.GetSwitch(ctx)
 }
 
 func (c *client) GetSwitch(ctx context.Context) (SwitchState, error) {

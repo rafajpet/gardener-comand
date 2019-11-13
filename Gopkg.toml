@@ -26,6 +26,10 @@
 
 
 [[constraint]]
+  name = "github.com/go-acme/lego"
+  version = "3.2.0"
+
+[[constraint]]
   branch = "master"
   name = "github.com/go-ocf/sdk"
 
