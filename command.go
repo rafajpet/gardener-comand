@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/go-acme/lego/log"
 	ocf "github.com/go-ocf/sdk/local"
 	"github.com/go-ocf/sdk/schema"
 	"time"
@@ -88,30 +87,13 @@ func (c *client) GetSwitch(ctx context.Context) (SwitchState, error) {
 
 func (c *client) Handle(ctx context.Context, device *ocf.Device, deviceLinks schema.ResourceLinks) {
 
-	log.Printf("Device: %s Types: %s", device.DeviceID(), device.DeviceTypes())
 	if c.device == nil && SliceContains(device.DeviceTypes(), c.config.DeviceType) {
-		log.Println("Device found. ID: ", device.DeviceID())
 		c.device = device
 		c.deviceLinks = deviceLinks
 		return
 	}
 }
 
-//
-//fmt.Printf("Device: %s \n", device.DeviceID())
-//hrefs := deviceLinks.GetResourceHrefs("core.light")
-//for _, href := range hrefs {
-//	fmt.Printf("Href: %s \n", href)
-//	link, _ := deviceLinks.GetResourceLink(href)
-//	req := light{}
-//	//device.GetResource(ctx, link, &req)
-//	req.Power = req.Power + 1
-//	//res := light{}
-//	err := device.UpdateResource(ctx, link, &req, nil)
-//	if err != nil {
-//		fmt.Println("unable to update resource", err)
-//	}
-//}
 
 func (c *client) Error(err error) {
 	fmt.Errorf("unable to get devices: %s", err)
