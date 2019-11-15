@@ -1,6 +1,6 @@
 ## gardener-command
 
-Simple util for control iotivity-lite device (gardener)(https://github.com/rafajpet/gardener)
+Simple util for control iotivity-lite device [gardener](https://github.com/rafajpet/gardener)
 
 ## Device type and resource type
 
